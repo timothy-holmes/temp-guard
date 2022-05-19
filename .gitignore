@@ -1,2 +1,6 @@
-.pytest_cache
+# .pytest_cache
+# .mypy_cache
+.*_cache
+
+# __pycache__
 __pycache__
