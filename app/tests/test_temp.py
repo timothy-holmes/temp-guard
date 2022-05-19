@@ -1,5 +1,5 @@
 import pytest
-import app
+import app # the package starting from the base dir /temp-guard
 
 def test_patch():
     print(app.w)
