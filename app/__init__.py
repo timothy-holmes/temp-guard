@@ -1,4 +1,5 @@
-from flask import Flask, jsonify, render_template
+from typing import Optional, NewType, Union
+from flask import Flask, jsonify, render_template, Response
 import wmi
 
 import datetime, os
@@ -6,7 +7,7 @@ import datetime, os
 app = Flask(__name__)
 w = wmi.WMI(namespace = r"root\wmi")
 
-def get_temp(property):
+def get_temp(property: str) -> Optional[int]:
     try:
         w_class = w.MSAcpi_ThermalZoneTemperature()[0]
         temp = getattr(w_class,property,None)
@@ -20,18 +21,18 @@ def get_temp(property):
     return temp
 
 @app.route('/')
-def index():
+def index() -> str:
     return render_template('index.html.j2')
 
 @app.route('/current-temp')
-def get_current_temp():
+def get_current_temp() -> Response:
     temp = get_temp('CurrentTemperature')
     dt = datetime.datetime.now()
     current_temp = {'datetime': str(dt), 'temp': temp}    
     return jsonify(current_temp)
 
 @app.route('/trip-points')
-def get_trip_point():
+def get_trip_point() -> Response:
     class_properties = ['ActiveTripPoint','PassiveTripPoint','CriticalTripPoint']    
     trip_points = {property: get_temp(property) for property in class_properties}
     return jsonify(trip_points)
