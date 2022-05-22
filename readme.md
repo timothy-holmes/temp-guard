@@ -6,10 +6,9 @@ Lightweight localhost server (Flask) to listens for requests from front-end and 
 
 Front-end consists of a basic line plotting (Chart.JS) of received data.
 
-Reasons for creating:
-- Procrastination
+Reason for creating:
 - Admin rights are required for temp monitoring and my laptop kept overheating during summer
-- The first one...
+- Small app to learn about unit testing/mocking/integration testing
 
 ## How to use
 
@@ -20,8 +19,6 @@ Reasons for creating:
 3. Open from browser and watch the plot populate with CPU temps 
 
 ## TODO
-- Finish front-end
-- Write unit tests
-- Do unit testing
-- Do integration test (aka run the goddam app)
+- Do integration test (aka run the app with WMI access)
 - Investigate WMI options (or adopt OpenHardwareMonitor DLLs) to access temps of other parts of CPU
+    - Include temps from more sensors (eg. individual cores, motherboard, GPU)
