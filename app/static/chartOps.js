@@ -1,47 +1,65 @@
+function getNewData() {
+    // get data from back-end using fetch
+    // uri: http://127.0.0.1:4999/current-temp
 
-    function setupNewChart(tempData) {
-        const canvas = document.getElementById('temp-chart');
-        const ctx = canvas.getContext('2d');
-        const config = {
-            type: 'line',
-            data: {
-                labels: tempData.DateTimes,
-                datasets: [{
-                label: 'Users created',
-                data: tempData.Temps,
-                borderColor: 'green',
-                backgroundColor: '#404040',
-                fill: true,
-                animations: false // <-- now plural, instead of "animation" before
-                }]
+    return fetch('http://127.0.0.1:4999/current-temp')
+        .then((response) => response.json())
+        .then((responseData) => {
+            console.log(responseData);
+            return responseData;
+            })
+        .catch(error => console.warn(error));
+}
+
+
+
+function setupNewChart() {
+    const canvas = document.getElementById('temp-chart');
+    const ctx = canvas.getContext('2d');
+    const config = {
+        type: 'line',
+        data: {
+            datasets: [{
+            label: 'CPU temp (d\xB0C)',
+            data: [],
+            pointBackgroundColor: '#009900',
+            backgroundColor: '#404040',
+            fill: true,
+            animations: false  // plural
+            }]
+        },
+        labels: ['Green'],
+        options: {
+            parsing: {
+                xAxisKey: 'datetime',
+                yAxisKey: 'temp'
             }
         }
-        
-        const myLineChart = new Chart(ctx, config);
     }
+    
+    const newChart = new Chart(ctx, config);
+    return newChart;
+}
 
-    function updateChart() {
-        // assign programmatically the datasets again, otherwise data changes won't show
-        myLineChart.data.labels = tempData.DateTimes;
-        myLineChart.data.datasets[0].data = tempData.Temps;
+function refreshChart() {
+    // assign programmatically the datasets again, otherwise data changes won't show
+    getNewData()
+        .then(
+            response => {
+                tempChart.data.datasets[0].data.push(response);
+                if (tempChart.data.datasets[0].data.length > 100) {
+                    tempChart.data.datasets[0].data.shift();
+                }
+                console.log(response);
+                tempChart.update();
+            }
+        );
+};
 
-        myLineChart.update();
-    };
+const tempChart = setupNewChart();
 
-    function updateData() {
-        // get data for back-end
-        // using fetch -- uri: http://127.0.0.1:4999/current-temp
-        // add new point to tempData arrays, but clip oldest point if too many points (max 100?)
-    }
-
-    function initialize() {
-        // this needs a while loop to make sure there is at least one point before moving on
-        updateData();
-        // new at least one point before chart setup can occur
-        setupNewChart();
-    }
-
-    function refreshCanvas() {
-        updateData();
-        updateChart();
-    }
+document.addEventListener("DOMContentLoaded", function(event) {
+    window.setInterval(function(){
+        refreshChart();
+    }, 1000);
+});

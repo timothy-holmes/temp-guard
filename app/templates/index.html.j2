@@ -2,18 +2,11 @@
     <head>
         <title>TempWatch</title>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-        <script src="{{ url_for('static', filename='chartOps.js') }}></script>
     </head>
     <body>
         <div>
             <canvas id="temp-chart"></canvas>
         </div>
-        <script>
-            var tempData = {'DateTimes': [], 'Temps': []};
-
-            $(document).ready(function() {
-                $(window).resize(setTimeout(refreshCanvas, 1000));
-            });
-        </script>
+        <script src="{{ url_for('static', filename='chartOps.js') }}"></script>
     </body>
 </html>

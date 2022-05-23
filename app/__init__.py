@@ -38,4 +38,8 @@ def get_trip_point() -> Response:
     return jsonify(trip_points)
 
 if __name__ == '__main__':
-    app.run(host = '127.0.0.1', port = 4999, debug = False)
+    debug = True # integration testing
+    if debug:
+        from tests.mockforWMI import MockWMI
+        w = MockWMI(namespace = 'test WMI')
+    app.run(host = '127.0.0.1', port = 4999, debug = debug)
