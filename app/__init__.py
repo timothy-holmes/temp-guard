@@ -1,4 +1,4 @@
-from typing import Optional, NewType, Union
+from typing import Optional
 from flask import Flask, jsonify, render_template, Response
 import wmi
 
@@ -11,7 +11,7 @@ def get_temp(property: str) -> Optional[int]:
     try:
         w_class = w.MSAcpi_ThermalZoneTemperature()[0]
         temp = getattr(w_class,property,None)
-    except Exception as e:
+    except Exception as e: # this is bad practice, TODO: isolate exception types
         temp = None
         print('get_temp error',e)
 
@@ -38,7 +38,7 @@ def get_trip_point() -> Response:
     return jsonify(trip_points)
 
 if __name__ == '__main__':
-    debug = True # integration testing
+    debug = False # use True for integration testing, TODO: move to .env
     if debug:
         from tests.mockforWMI import MockWMI
         w = MockWMI(namespace = 'test WMI')
