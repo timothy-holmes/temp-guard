@@ -5,7 +5,6 @@ function getNewData() {
     return fetch('http://127.0.0.1:4999/current-temp')
         .then((response) => response.json())
         .then((responseData) => {
-            console.log(responseData);
             return responseData;
             })
         .catch(error => console.warn(error));
@@ -47,6 +46,7 @@ function refreshChart() {
         .then(
             response => {
                 tempChart.data.datasets[0].data.push(response);
+                tempChart.update();
                 if (tempChart.data.datasets[0].data.length > 100) {
                     tempChart.data.datasets[0].data.shift();
                 }
