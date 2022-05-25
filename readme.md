@@ -13,10 +13,12 @@ Reason for creating:
 ## How to use
 
 1. Clone repo to somewhere... If using admins rights is a security risk, save in a folder and lock changes.
-2. Run (Python 3.x) backend/server.py with admin rights
+2. Change into the `temp-guard` directory (`cd temp-guard`)
+3. Install dependencies: `pip install -r requirements.txt`
+4. Run (Python 3.x) `python app/__init__.py` with admin rights
     - Use Task Scheduler to save admin credentials for future runs
-    - Use pythonw.exe rather than python.exe to suppress the console window
-3. Open from browser and watch the plot populate with CPU temps 
+    - Use `pythonw.exe` rather than `python.exe` to suppress the console window
+5. Open browser at URL `http://127.0.0.1:4999` and watch the plot populate with CPU temps 
 
 ## TODO
 - Do integration test (aka run the app with WMI access)
