@@ -1,4 +1,8 @@
-Project on hold. Unable to use wmi and flask simulataneously due to mutlithreading conflicts. Multithreading isn't in my wheelhouse just yet, but it's on the list. I believe concurrency is the future of computing. I did gain some experience writing unit tests and semi-integrated testing inlcuding component mocking, and had fun playing software developer with Brendan. For the time being, I'll find a pre-existing solution if I need a temperature monitor this summer ;)
+Project on hold. 
+
+I discovered I'm unable to use wmi and flask simulataneously due to mutlithreading conflicts. At least, that's what I _think_. Multithreading isn't in my wheelhouse just yet (it's on the list - I believe concurrency is the future of computing). 
+
+Skills and experience were gained in writing unit tests and semi-integrated testing inlcuding component mocking, and I had fun playing software developer with Brendan, handling merge requests, issue assignments etc. I'll find a pre-existing solution if I need a temperature monitor this summer. I'll leave this here for the time being.
 
 # TempWatch
 
